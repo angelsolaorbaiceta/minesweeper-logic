@@ -1,6 +1,6 @@
 {
   "name": "minesweeper-logic",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Minesweeper game logic",
   "main": "index.js",
   "types": "types.d.ts",
