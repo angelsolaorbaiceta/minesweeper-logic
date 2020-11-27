@@ -8,6 +8,10 @@
     "src",
     "index.js"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/angelsolaorbaiceta/minesweeper-logic.git"
+  },
   "author": "Angel Sola Orbaiceta",
   "license": "MIT",
   "scripts": {
