@@ -23,7 +23,7 @@ describe('The game board', () => {
     let result
 
     beforeEach(() => {
-      result = updateBoard(makeFakeBoard()).unhiddingCell(1, 1)
+      result = updateBoard(makeFakeBoard()).unhidingCell(1, 1)
     })
 
     it('unhides the selected cell', () => {
@@ -48,7 +48,7 @@ describe('The game board', () => {
     let board
 
     beforeEach(() => {
-      const result = updateBoard(makeFakeBoard()).unhiddingCell(0, 0)
+      const result = updateBoard(makeFakeBoard()).unhidingCell(0, 0)
       board = result.board
     })
 
@@ -77,7 +77,7 @@ describe('The game board', () => {
     let result
 
     beforeEach(() => {
-      result = updateBoard(makeFakeBoard()).unhiddingCell(0, 2)
+      result = updateBoard(makeFakeBoard()).unhidingCell(0, 2)
     })
 
     it('the game is over', () => {
@@ -96,7 +96,7 @@ describe('The game board', () => {
     beforeEach(() => {
       let board = makeFakeBoard()
       uncoverIndices.forEach(([row, col]) => {
-        result = updateBoard(board).unhiddingCell(row, col)
+        result = updateBoard(board).unhidingCell(row, col)
         board = result.board
       })
     })

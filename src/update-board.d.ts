@@ -8,4 +8,4 @@ export type UpdatedBoardResult = {
 
 export type UnhiddeCellFn = (row: number, col: number) => UpdatedBoardResult
 
-export function updateBoard(board: GameBoard): { unhiddingCell: UnhiddeCellFn }
+export function updateBoard(board: GameBoard): { unhidingCell: UnhiddeCellFn }

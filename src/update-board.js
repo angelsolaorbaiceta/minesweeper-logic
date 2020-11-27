@@ -1,6 +1,6 @@
 export function updateBoard (board) {
   return {
-    unhiddingCell (row, col) {
+    unhidingCell (row, col) {
       return unhideCell(board, row, col)
     }
   }
