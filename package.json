@@ -6,7 +6,8 @@
   "types": "types.d.ts",
   "files": [
     "src",
-    "index.js"
+    "index.js",
+    "types.d.ts"
   ],
   "repository": {
     "type": "git",
