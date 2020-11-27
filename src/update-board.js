@@ -7,6 +7,14 @@ export function updateBoard (board) {
 }
 
 function unhideCell (board, row, col) {
+  if (board[row][col].hasMine) {
+    return {
+      board,
+      isGameOver: true,
+      isGameWon: false
+    }
+  }
+
   const updatedBoard = makeBoardCopy(board)
   updatedBoard[row] = board[row].map((cell, index) =>
     index === col ? { ...cell, isHidden: false } : cell
@@ -16,7 +24,11 @@ function unhideCell (board, row, col) {
     unhideTrivialCellsInPlace(updatedBoard, row, col)
   }
 
-  return updatedBoard
+  return {
+    board: updatedBoard,
+    isGameOver: false,
+    isGameWon: isGameWon(updatedBoard)
+  }
 }
 
 function unhideTrivialCellsInPlace (board, row, col) {
@@ -51,4 +63,18 @@ function makeBoardCopy (board) {
   })
 
   return boardCopy
+}
+
+function isGameWon (board) {
+  for (let i = 0; i < board.length; i++) {
+    for (let j = 0; j < board.length; j++) {
+      const cell = board[i][j]
+
+      if (!cell.hasMine && cell.isHidden) {
+        return false
+      }
+    }
+  }
+
+  return true
 }

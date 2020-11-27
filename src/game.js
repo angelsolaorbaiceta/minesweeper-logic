@@ -67,25 +67,3 @@ export function countRemainingUnhiddenCells (board) {
 
   return unhiddenCellsCount
 }
-
-export function sweepZeroesAround (board, row, col) {
-  if (board[row][col].minesAroundCount > 0) {
-    return board
-  }
-
-  const size = board.length
-  const rowIndices = [row - 1, row, row + 1].filter((i) => i > -1 && i < size)
-  const colIncides = [col - 1, col, col + 1].filter((i) => i > -1 && i < size)
-
-  rowIndices.forEach((i) => {
-    colIncides.forEach((j) => {
-      if (i === row && j === col) {
-        return
-      }
-
-      board[i][j] = { ...board[i][j], isHidden: false }
-    })
-  })
-
-  return board
-}

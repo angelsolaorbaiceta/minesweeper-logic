@@ -20,19 +20,27 @@ describe('The game board', () => {
   })
 
   describe('when a non-mine, non-zero mines around cell is unhidden', () => {
-    let board
+    let result
 
     beforeEach(() => {
-      board = updateBoard(makeFakeBoard()).unhiddingCell(1, 1)
+      result = updateBoard(makeFakeBoard()).unhiddingCell(1, 1)
     })
 
     it('unhides the selected cell', () => {
-      const { isHidden } = board[1][1]
+      const { isHidden } = result.board[1][1]
       expect(isHidden).toBeFalsy()
     })
 
     it('keeps the rest of the cells hidden', () => {
-      expect(countRemainingUnhiddenCells(board)).toBe(11)
+      expect(countRemainingUnhiddenCells(result.board)).toBe(11)
+    })
+
+    it('the game is not over', () => {
+      expect(result.isGameOver).toBeFalsy()
+    })
+
+    it('the game is not won', () => {
+      expect(result.isGameWon).toBeFalsy()
     })
   })
 
@@ -40,8 +48,8 @@ describe('The game board', () => {
     let board
 
     beforeEach(() => {
-      board = updateBoard(makeFakeBoard()).unhiddingCell(0, 0)
-      console.log(board)
+      const result = updateBoard(makeFakeBoard()).unhiddingCell(0, 0)
+      board = result.board
     })
 
     it('unhides the selected cell', () => {
@@ -60,9 +68,45 @@ describe('The game board', () => {
       ]
       indices.forEach(([row, col]) => {
         const { isHidden } = board[row][col]
-        console.log(`Mine at (${row}, ${col}) is hidden? ${isHidden}`)
         expect(isHidden).toBeFalsy()
       })
+    })
+  })
+
+  describe('when a mine cell is unhidden', () => {
+    let result
+
+    beforeEach(() => {
+      result = updateBoard(makeFakeBoard()).unhiddingCell(0, 2)
+    })
+
+    it('the game is over', () => {
+      expect(result.isGameOver).toBe(true)
+    })
+
+    it("the game can't be won", () => {
+      expect(result.isGameWon).toBe(false)
+    })
+  })
+
+  describe('when all the non-mine cells are uncovered', () => {
+    const uncoverIndices = [[0, 0], [1, 2], [1, 3], [2, 2], [2, 3], [3, 0], [3, 3]]
+    let result
+
+    beforeEach(() => {
+      let board = makeFakeBoard()
+      uncoverIndices.forEach(([row, col]) => {
+        result = updateBoard(board).unhiddingCell(row, col)
+        board = result.board
+      })
+    })
+
+    it('the game can\'t be over', () => {
+      expect(result.isGameOver).toBeFalsy()
+    })
+
+    it('the game is won', () => {
+      expect(result.isGameWon).toBeTruthy()
     })
   })
 })
